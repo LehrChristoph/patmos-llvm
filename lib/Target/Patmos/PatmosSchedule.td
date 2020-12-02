@@ -50,6 +50,7 @@ def IIC_SPCf   : InstrItinClass;
 def IIC_CFLi   : InstrItinClass;
 def IIC_CFLt   : InstrItinClass;
 def IIC_CFLr   : InstrItinClass;
+def IIC_COP   : InstrItinClass;
 // pseudos
 def IIC_Pseudo : InstrItinClass;
 
@@ -177,6 +178,8 @@ def PatmosGenericItineraries : ProcessorItineraries<
     InstrItinData<IIC_CFLr,   [ InstrStage<1, [FU_ALU0]> ],
                               [ 2, 2, 1, 1 ], 
 			      [ NoBypass, NoBypass, PB_GPR, PB_GPR ] >,
+    InstrItinData<IIC_COP,    [ InstrStage<1, [FU_ALU0]> ], 
+                              [ 2, 2, 2, 2, 2, 0, 0 ] >,
     InstrItinData<IIC_Pseudo, [ ]>
   ]>;
 

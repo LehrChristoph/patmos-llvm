@@ -430,3 +430,6 @@ defm SBL : StoreTypedPatterns<SBL, uimm7  , immBase7  , spmStore<truncstorei8>>;
 def : Pat<(brjt jtpat:$jtable, RRegs:$index),
           (BRTu (LWC (SHADD2l RRegs:$index, jtpat:$jtable), 0), jtpat:$jtable)>;
 
+//Pattern for Coprocessor
+def : Pat<(copc RRegs:$rs1, RRegs:$rs2, uimm3:$copid, uimm3:$funcid )>;
+

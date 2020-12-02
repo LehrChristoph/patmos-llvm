@@ -175,6 +175,8 @@ def addr : ComplexPattern<iPTR, 2, "SelectAddr", [], []>;
 //===----------------------------------------------------------------------===//
 
 // offset of indexed load/store
+def uimm3    : Operand<i32>, PatLeaf<(imm), [{return isUInt<3>(N->getZExtValue());}]>;
+
 def uimm7    : Operand<i32>, PatLeaf<(imm), [{return isUInt<7>(N->getZExtValue());}]>;
 def imm7     : Operand<i32>, PatLeaf<(imm), [{return isInt <7>(N->getZExtValue());}]>;
 
@@ -888,6 +890,9 @@ let ImmShift = 1, ImmSigned = 0 in defm LH  : LoadTyped<0b001, uimm7s1, "lh" >;
 let ImmShift = 0, ImmSigned = 0 in defm LB  : LoadTyped<0b010, uimm7  , "lb" >;
 let ImmShift = 1, ImmSigned = 0 in defm LHU : LoadTyped<0b011, uimm7s1, "lhu">;
 let ImmShift = 0, ImmSigned = 0 in defm LBU : LoadTyped<0b100, uimm7  , "lbu">;
+
+def COPc : FCOPc<, (outs RRegs:$rd), (ins pred:$p, RRegs:$rs1, RRegs:$rs2, uimm3:$copid, uimm3:$funcid),
+                 "copc", "$rd = $rs1, $rs2, $copid, $funcid", [(copc RRegs:$rs1, RRegs:$rs2, uimm3:$copid, uimm3:$funcid)]>;
 
 
 

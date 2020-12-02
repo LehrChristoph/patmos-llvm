@@ -524,3 +524,25 @@ class CFLrt<bits<2>op, bits<1>d,
   let Inst{11-7} = rs2;
   let Inst{1-0}  = op;
 }
+
+
+// FCOPc - custom coprocessor instruction format
+//
+class FCOPc<dag outs, dag ins, string asmop, string asmstr, list<dag> pattern>
+  : PatmosInst<outs, ins, asmop, asmstr, pattern, FOther, IIC_COP> {
+
+  let Inst{26-22} = 0b01101;
+  bits<5> rs1;
+  bits<5> rs2;
+  bits<5> rd;
+  bits<3> copid;
+  bits<3> funcid;
+
+  let Inst{21-17} = rd;
+  let Inst{16-12} = rs1;
+  let Inst{11-7} = rs2;
+  let Inst{6-4} = copid;
+  let Inst{3-1} = funcid;
+
+  let Inst{0}  = 0b0;
+}
